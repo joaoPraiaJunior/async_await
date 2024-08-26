@@ -6,13 +6,13 @@ const elementos = {
     mensagemDeErro: '[data-js="mensagem-de-erro"]'
 }
 
-const botaoUploadImagem = document.querySelector(elementos.botaoUploadImagem);
+const botaoUpaloadImagem = document.querySelector(elementos.botaoUploadImagem);
 const inputUploadImagem = document.querySelector(elementos.inputUploadImagem);
 const imagem = document.querySelector(elementos.imagem);
 const descricaoDaImagem = document.querySelector(elementos.descricaoDaImagem);
 const mensagemDeErro = document.querySelector(elementos.mensagemDeErro);
 
-botaoUploadImagem.addEventListener('click', () => {
+botaoUpaloadImagem.addEventListener('click', () => {
     inputUploadImagem.click();
 });
 
@@ -23,13 +23,13 @@ function validaImagem(arquivo, evento) {
         return 'Extensão não permitida. Por favor, envie uma imagem no formato JPEG, PNG, JPG ou GIF';
     }
 
-    if (!validaTamanhoDaImagem(arquivo)) {
+    if (!validaTamnhoDaImagem(arquivo)) {
         evento.target.value = '';
         return 'Tamanho da imagem não permitido. Por favor, envie uma imagem de até 2MB';
     }
 
     return null; // Sem erro
-}
+ }
 
 function validaExtensao(arquivo) {
 
@@ -37,7 +37,7 @@ function validaExtensao(arquivo) {
     return extensoesPermitidas.includes(arquivo.type);
 }
 
-function validaTamanhoDaImagem(arquivo) {
+function validaTamnhoDaImagem(arquivo) {
 
     const tamanhoPermitidoDoisMB = 1024 * 1024 * 2;
     return arquivo.size <= tamanhoPermitidoDoisMB;
@@ -52,8 +52,8 @@ function lerConteudoDoArquivo(arquivo, evento) {
 
             const erro = validaImagem(arquivo, evento)
 
-            if (erro) {
-                return reject(erro);
+            if(erro) {
+                reject(erro);
             }
 
             resolve({ url: leitor.result, nome: arquivo.name });
@@ -67,50 +67,31 @@ function lerConteudoDoArquivo(arquivo, evento) {
     });
 }
 
-function manipularMensagemDeErro(erro) {
-
-    if (erro) {
-        mensagemDeErro.textContent = erro;
-        mensagemDeErro.classList.add('piscar');
-        mensagemDeErro.setAttribute('aria-hidden', false);
-        mensagemDeErro.setAttribute('role', 'alert');
-        mensagemDeErro.setAttribute('tabindex', 0); // Para que o leitor de tela leia a mensagem
-    } else {
-        mensagemDeErro.textContent = '';
-        mensagemDeErro.classList.remove('piscar');
-        mensagemDeErro.setAttribute('aria-hidden', true);
-        mensagemDeErro.removeAttribute('role');
-        mensagemDeErro.removeAttribute('tabindex');
-    }
+function exibeMensagemDeErro(erro) {
+    mensagemDeErro.textContent = erro;
+    mensagemDeErro.setAttribute('aria-hidden', false);
+    mensagemDeErro.setAttribute('role', 'alert');
+    mensagemDeErro.classList.add('piscar');
 }
 
-function debounce(funcao, tempoEspera) {
-    let identificadorTimeout;
-    return function (...args) {
-        if (identificadorTimeout) clearTimeout(identificadorTimeout);
-        identificadorTimeout = setTimeout(() => funcao.apply(this, args), tempoEspera);
-    };
+function limpaMensagemDeErro() {
+    mensagemDeErro.textContent = '';
+    mensagemDeErro.setAttribute('aria-hidden', true);
+    mensagemDeErro.removeAttribute('role');
+    mensagemDeErro.classList.remove('piscar');
 }
 
-inputUploadImagem.addEventListener('change', (evento) => {
+inputUploadImagem.addEventListener('change', async (evento) => {
     const arquivo = evento.target.files[0];
-
-    if (!arquivo) {
-        manipularMensagemDeErro('Nenhum arquivo selecionado.');
-        return;
-    }
-
-    debounce(async () => {
+    if (arquivo) {
         try {
             const conteudoDoArquivo = await lerConteudoDoArquivo(arquivo, evento);
             imagem.src = conteudoDoArquivo.url;
             descricaoDaImagem.textContent = conteudoDoArquivo.nome;
-
-            manipularMensagemDeErro(null); // Limpa a mensagem
+            limpaMensagemDeErro();
 
         } catch (erro) {
-
-            manipularMensagemDeErro(erro); // Exibe o erro
+            exibeMensagemDeErro(erro);
         }
-    }, 300)();
+    }
 });

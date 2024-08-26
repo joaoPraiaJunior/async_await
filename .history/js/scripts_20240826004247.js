@@ -84,33 +84,30 @@ function manipularMensagemDeErro(erro) {
     }
 }
 
-function debounce(funcao, tempoEspera) {
-    let identificadorTimeout;
+
+function debounce(fn, delay) {
+    let timeoutId;
     return function (...args) {
-        if (identificadorTimeout) clearTimeout(identificadorTimeout);
-        identificadorTimeout = setTimeout(() => funcao.apply(this, args), tempoEspera);
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
     };
 }
 
+
 inputUploadImagem.addEventListener('change', (evento) => {
     const arquivo = evento.target.files[0];
-
-    if (!arquivo) {
+    if (arquivo) {
         manipularMensagemDeErro('Nenhum arquivo selecionado.');
         return;
     }
-
     debounce(async () => {
         try {
             const conteudoDoArquivo = await lerConteudoDoArquivo(arquivo, evento);
             imagem.src = conteudoDoArquivo.url;
             descricaoDaImagem.textContent = conteudoDoArquivo.nome;
-
             manipularMensagemDeErro(null); // Limpa a mensagem
-
         } catch (erro) {
-
             manipularMensagemDeErro(erro); // Exibe o erro
         }
-    }, 300)();
+    }, 500)();
 });

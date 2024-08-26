@@ -6,13 +6,13 @@ const elementos = {
     mensagemDeErro: '[data-js="mensagem-de-erro"]'
 }
 
-const botaoUploadImagem = document.querySelector(elementos.botaoUploadImagem);
+const botaoUpaloadImagem = document.querySelector(elementos.botaoUploadImagem);
 const inputUploadImagem = document.querySelector(elementos.inputUploadImagem);
 const imagem = document.querySelector(elementos.imagem);
 const descricaoDaImagem = document.querySelector(elementos.descricaoDaImagem);
 const mensagemDeErro = document.querySelector(elementos.mensagemDeErro);
 
-botaoUploadImagem.addEventListener('click', () => {
+botaoUpaloadImagem.addEventListener('click', () => {
     inputUploadImagem.click();
 });
 
@@ -29,7 +29,7 @@ function validaImagem(arquivo, evento) {
     }
 
     return null; // Sem erro
-}
+ }
 
 function validaExtensao(arquivo) {
 
@@ -52,8 +52,8 @@ function lerConteudoDoArquivo(arquivo, evento) {
 
             const erro = validaImagem(arquivo, evento)
 
-            if (erro) {
-                return reject(erro);
+            if(erro) {
+                reject(erro);
             }
 
             resolve({ url: leitor.result, nome: arquivo.name });
@@ -67,50 +67,29 @@ function lerConteudoDoArquivo(arquivo, evento) {
     });
 }
 
-function manipularMensagemDeErro(erro) {
+function mensagemDeErro(erro, mostrarMensagemDeErro) {
 
-    if (erro) {
+    if(mostrarMensagemDeErro) {
         mensagemDeErro.textContent = erro;
         mensagemDeErro.classList.add('piscar');
-        mensagemDeErro.setAttribute('aria-hidden', false);
-        mensagemDeErro.setAttribute('role', 'alert');
-        mensagemDeErro.setAttribute('tabindex', 0); // Para que o leitor de tela leia a mensagem
     } else {
         mensagemDeErro.textContent = '';
         mensagemDeErro.classList.remove('piscar');
-        mensagemDeErro.setAttribute('aria-hidden', true);
-        mensagemDeErro.removeAttribute('role');
-        mensagemDeErro.removeAttribute('tabindex');
     }
 }
 
-function debounce(funcao, tempoEspera) {
-    let identificadorTimeout;
-    return function (...args) {
-        if (identificadorTimeout) clearTimeout(identificadorTimeout);
-        identificadorTimeout = setTimeout(() => funcao.apply(this, args), tempoEspera);
-    };
-}
 
-inputUploadImagem.addEventListener('change', (evento) => {
+inputUploadImagem.addEventListener('change', async (evento) => {
     const arquivo = evento.target.files[0];
-
-    if (!arquivo) {
-        manipularMensagemDeErro('Nenhum arquivo selecionado.');
-        return;
-    }
-
-    debounce(async () => {
+    if (arquivo) {
         try {
             const conteudoDoArquivo = await lerConteudoDoArquivo(arquivo, evento);
             imagem.src = conteudoDoArquivo.url;
             descricaoDaImagem.textContent = conteudoDoArquivo.nome;
-
-            manipularMensagemDeErro(null); // Limpa a mensagem
+            mensagemDeErro('', false);
 
         } catch (erro) {
-
-            manipularMensagemDeErro(erro); // Exibe o erro
+            mensagemDeErro(erro, true);
         }
-    }, 300)();
+    }
 });

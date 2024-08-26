@@ -84,6 +84,7 @@ function manipularMensagemDeErro(erro) {
     }
 }
 
+
 function debounce(funcao, tempoEspera) {
     let identificadorTimeout;
     return function (...args) {

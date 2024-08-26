@@ -84,13 +84,15 @@ function manipularMensagemDeErro(erro) {
     }
 }
 
-function debounce(funcao, tempoEspera) {
-    let identificadorTimeout;
+
+function debounce(fn, delay) {
+    let timeoutId;
     return function (...args) {
-        if (identificadorTimeout) clearTimeout(identificadorTimeout);
-        identificadorTimeout = setTimeout(() => funcao.apply(this, args), tempoEspera);
+        if (timeoutId) clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => fn.apply(this, args), delay);
     };
 }
+
 
 inputUploadImagem.addEventListener('change', (evento) => {
     const arquivo = evento.target.files[0];

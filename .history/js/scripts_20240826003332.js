@@ -29,7 +29,7 @@ function validaImagem(arquivo, evento) {
     }
 
     return null; // Sem erro
-}
+ }
 
 function validaExtensao(arquivo) {
 
@@ -52,7 +52,7 @@ function lerConteudoDoArquivo(arquivo, evento) {
 
             const erro = validaImagem(arquivo, evento)
 
-            if (erro) {
+            if(erro) {
                 return reject(erro);
             }
 
@@ -69,7 +69,7 @@ function lerConteudoDoArquivo(arquivo, evento) {
 
 function manipularMensagemDeErro(erro) {
 
-    if (erro) {
+    if(erro) {
         mensagemDeErro.textContent = erro;
         mensagemDeErro.classList.add('piscar');
         mensagemDeErro.setAttribute('aria-hidden', false);
@@ -84,33 +84,17 @@ function manipularMensagemDeErro(erro) {
     }
 }
 
-function debounce(funcao, tempoEspera) {
-    let identificadorTimeout;
-    return function (...args) {
-        if (identificadorTimeout) clearTimeout(identificadorTimeout);
-        identificadorTimeout = setTimeout(() => funcao.apply(this, args), tempoEspera);
-    };
-}
-
-inputUploadImagem.addEventListener('change', (evento) => {
+inputUploadImagem.addEventListener('change', async (evento) => {
     const arquivo = evento.target.files[0];
-
-    if (!arquivo) {
-        manipularMensagemDeErro('Nenhum arquivo selecionado.');
-        return;
-    }
-
-    debounce(async () => {
+    if (arquivo) {
         try {
             const conteudoDoArquivo = await lerConteudoDoArquivo(arquivo, evento);
             imagem.src = conteudoDoArquivo.url;
             descricaoDaImagem.textContent = conteudoDoArquivo.nome;
-
-            manipularMensagemDeErro(null); // Limpa a mensagem
+            manipularMensagemDeErro(null);
 
         } catch (erro) {
-
-            manipularMensagemDeErro(erro); // Exibe o erro
+            manipularMensagemDeErro(erro);
         }
-    }, 300)();
+    }
 });
