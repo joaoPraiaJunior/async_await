@@ -249,7 +249,7 @@ textarea {
 }
 
 
-.piscar {
+.c-upload-imagem__mensagem-erro--piscar {
   animation: piscar 1.5s infinite;
 }
 
