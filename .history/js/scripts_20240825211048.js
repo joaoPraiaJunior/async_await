@@ -63,13 +63,6 @@ function lerConteudoDoArquivo(arquivo, evento) {
     });
 }
 
-function exibeMensagemDeErro(erro) {
-    mensagemDeErro.textContent = erro;
-    mensagemDeErro.setAttribute('aria-hidden', false);
-    mensagemDeErro.setAttribute('role', 'alert');
-    mensagemDeErro.classList.add('piscar');
-}
-
 inputUploadImagem.addEventListener('change', async (evento) => {
     const arquivo = evento.target.files[0];
 
@@ -78,13 +71,9 @@ inputUploadImagem.addEventListener('change', async (evento) => {
             const conteudoDoArquivo = await lerConteudoDoArquivo(arquivo, evento);
             imagem.src = conteudoDoArquivo.url;
             descricaoDaImagem.textContent = conteudoDoArquivo.nome;
-            mensagemDeErro.textContent = '';
-            mensagemDeErro.setAttribute('aria-hidden', true);
-            mensagemDeErro.removeAttribute('role');
-            mensagemDeErro.classList.remove('piscar');
 
         } catch (erro) {
-            exibeMensagemDeErro(erro);
+            console.log(erro);
         }
     }
 });

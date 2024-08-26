@@ -3,20 +3,18 @@ const elementos = {
     inputUploadImagem: '[data-js="input-upload-imagem"]',
     imagem: '[data-js="imagem"]',
     descricaoDaImagem: '[data-js="descricao-da-imagem"]',
-    mensagemDeErro: '[data-js="mensagem-de-erro"]'
 }
 
 const botaoUpaloadImagem = document.querySelector(elementos.botaoUpaloadImagem);
 const inputUploadImagem = document.querySelector(elementos.inputUploadImagem);
 const imagem = document.querySelector(elementos.imagem);
 const descricaoDaImagem = document.querySelector(elementos.descricaoDaImagem);
-const mensagemDeErro = document.querySelector(elementos.mensagemDeErro);
 
 botaoUpaloadImagem.addEventListener('click', () => {
     inputUploadImagem.click();
 });
 
-function validaImagem(arquivo, evento, reject) {
+function validaImagem(arquivo, evento) {
 
     if (!validaExtensao(arquivo)) {
         reject('Extensão não permitida. Por favor, envie uma imagem no formato JPEG, PNG, JPG ou GIF');
@@ -63,13 +61,6 @@ function lerConteudoDoArquivo(arquivo, evento) {
     });
 }
 
-function exibeMensagemDeErro(erro) {
-    mensagemDeErro.textContent = erro;
-    mensagemDeErro.setAttribute('aria-hidden', false);
-    mensagemDeErro.setAttribute('role', 'alert');
-    mensagemDeErro.classList.add('piscar');
-}
-
 inputUploadImagem.addEventListener('change', async (evento) => {
     const arquivo = evento.target.files[0];
 
@@ -78,13 +69,9 @@ inputUploadImagem.addEventListener('change', async (evento) => {
             const conteudoDoArquivo = await lerConteudoDoArquivo(arquivo, evento);
             imagem.src = conteudoDoArquivo.url;
             descricaoDaImagem.textContent = conteudoDoArquivo.nome;
-            mensagemDeErro.textContent = '';
-            mensagemDeErro.setAttribute('aria-hidden', true);
-            mensagemDeErro.removeAttribute('role');
-            mensagemDeErro.classList.remove('piscar');
 
         } catch (erro) {
-            exibeMensagemDeErro(erro);
+            console.log("erro de leitura do arquivo", erro);
         }
     }
 });

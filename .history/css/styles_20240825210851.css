@@ -247,20 +247,3 @@ textarea {
 .c-upload-imagem__mensagem-erro {
   margin-top: 1.5rem;
 }
-
-
-.piscar {
-  animation: piscar 1.5s infinite;
-}
-
-@keyframes piscar {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}

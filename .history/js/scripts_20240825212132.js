@@ -67,7 +67,7 @@ function exibeMensagemDeErro(erro) {
     mensagemDeErro.textContent = erro;
     mensagemDeErro.setAttribute('aria-hidden', false);
     mensagemDeErro.setAttribute('role', 'alert');
-    mensagemDeErro.classList.add('piscar');
+    mensagemDeErro.classList.add('c-upload-imagem__mensagem-erro--piscar');
 }
 
 inputUploadImagem.addEventListener('change', async (evento) => {
@@ -81,7 +81,7 @@ inputUploadImagem.addEventListener('change', async (evento) => {
             mensagemDeErro.textContent = '';
             mensagemDeErro.setAttribute('aria-hidden', true);
             mensagemDeErro.removeAttribute('role');
-            mensagemDeErro.classList.remove('piscar');
+            mensagemDeErro.classList.remove('c-upload-imagem__mensagem-erro--piscar');
 
         } catch (erro) {
             exibeMensagemDeErro(erro);

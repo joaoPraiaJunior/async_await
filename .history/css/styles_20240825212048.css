@@ -249,8 +249,8 @@ textarea {
 }
 
 
-.piscar {
-  animation: piscar 1.5s infinite;
+.c-upload-imagem__mensagem-erro--piscar {
+  animation: piscar 2s infinite;
 }
 
 @keyframes piscar {
