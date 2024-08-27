@@ -19,19 +19,7 @@ const inputTags = document.querySelector(elementos.inputTags);
 const formularioListaTags = document.querySelector(elementos.formularioListaTags);
 const formulario = document.querySelector(elementos.formulario);
 const botaoExluirDadosFormulario = document.querySelector(elementos.botaoExluirDadosFormulario);
-const tagsDisponiveis = [
-    "Front-end",
-    "Programação",
-    "Data Science",
-    "Full-stack",
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Angular",
-    "Vue",
-    "Back-end",
-];
+const tagsDisponiveis = ["Front-end", "Programação", "Data Science", "Full-stack", "HTML", "CSS", "JavaScript"];
 
 botaoUploadImagem.addEventListener('click', () => {
     inputUploadImagem.click();
@@ -39,7 +27,7 @@ botaoUploadImagem.addEventListener('click', () => {
 
 function validaImagem(arquivo, evento) {
 
-    if (!validaExtensaoDaImagem(arquivo)) {
+    if (!validaExtensao(arquivo)) {
         evento.target.value = '';
         return 'Extensão não permitida. Por favor, envie uma imagem no formato JPEG, PNG, JPG ou GIF';
     }
@@ -52,7 +40,7 @@ function validaImagem(arquivo, evento) {
     return null; // Sem erro
 }
 
-function validaExtensaoDaImagem(arquivo) {
+function validaExtensao(arquivo) {
 
     const extensoesPermitidas = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
     return extensoesPermitidas.includes(arquivo.type);
@@ -107,7 +95,7 @@ function manipularMensagemDeErro(erro) {
 
 
 function excluirTag(evento) {
-    const botaoExcluir = evento.target.closest('[data-js="botao-excluir-tag"]');
+    const botaoExcluir = evento.target;
     if (botaoExcluir) {
         const tagEscolhida = botaoExcluir.parentElement;
         formularioListaTags.removeChild(tagEscolhida);
@@ -141,6 +129,7 @@ inputUploadImagem.addEventListener('change', async (evento) => {
     }
 
 });
+
 
 function exibirTagsDisponiveis(tagTexto) {
 
@@ -182,7 +171,8 @@ async function criarTagsDaImagem(evento) {
                     inputTags.value = '';
                 }
             } catch (erro) {
-                manipularMensagemDeErro('Erro ao criar tag', erro);
+                console.error("Erro ao criar tag", erro);
+                manipularMensagemDeErro('Erro ao criar tag');
             }
         }
     }
@@ -206,7 +196,7 @@ async function publicarDadosDoProjeto(nomeDoProjeto, descricaoDoProjeto, tags) {
     });
 }
 
-async function enviarDados(evento) {
+async function envidarDados(evento) {
     evento.preventDefault();
     const nomeDoProjeto = formulario.projeto.value;
     const descricaoDoProjeto = formulario.descricao.value;
@@ -217,14 +207,14 @@ async function enviarDados(evento) {
         manipularMensagemDeErro(mensagem);
     } catch (erro) {
         console.error('Erro ao publicar projeto', erro);
-        manipularMensagemDeErro('Erro ao publicar projeto');
+        manipularMensagemDeErro('Erro ao publicar projeto', erro);
     }
 
     elementosQueResetamFormulario();
 }
 
 
-formulario.addEventListener('submit', enviarDados);
+formulario.addEventListener('submit', envidarDados);
 
 
 function descartarDadosDoFormulario(evento) {

@@ -6,8 +6,6 @@ const elementos = {
     mensagemDeErro: '[data-js="mensagem-de-erro"]',
     inputTags: '[data-js="input-tags"]',
     formularioListaTags: '[data-js="formulario-lista-tags"]',
-    formulario: '[data-js="formulario"]',
-    botaoExluirDadosFormulario: '[data-js="botao-excluir-dados-formulario"]',
 }
 
 const botaoUploadImagem = document.querySelector(elementos.botaoUploadImagem);
@@ -17,21 +15,7 @@ const descricaoDaImagem = document.querySelector(elementos.descricaoDaImagem);
 const mensagemDeErro = document.querySelector(elementos.mensagemDeErro);
 const inputTags = document.querySelector(elementos.inputTags);
 const formularioListaTags = document.querySelector(elementos.formularioListaTags);
-const formulario = document.querySelector(elementos.formulario);
-const botaoExluirDadosFormulario = document.querySelector(elementos.botaoExluirDadosFormulario);
-const tagsDisponiveis = [
-    "Front-end",
-    "Programação",
-    "Data Science",
-    "Full-stack",
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Angular",
-    "Vue",
-    "Back-end",
-];
+const tagsDisponiveis = ["Front-end", "Programação", "Data Science", "Full-stack", "HTML", "CSS", "JavaScript"];
 
 botaoUploadImagem.addEventListener('click', () => {
     inputUploadImagem.click();
@@ -39,7 +23,7 @@ botaoUploadImagem.addEventListener('click', () => {
 
 function validaImagem(arquivo, evento) {
 
-    if (!validaExtensaoDaImagem(arquivo)) {
+    if (!validaExtensao(arquivo)) {
         evento.target.value = '';
         return 'Extensão não permitida. Por favor, envie uma imagem no formato JPEG, PNG, JPG ou GIF';
     }
@@ -52,7 +36,7 @@ function validaImagem(arquivo, evento) {
     return null; // Sem erro
 }
 
-function validaExtensaoDaImagem(arquivo) {
+function validaExtensao(arquivo) {
 
     const extensoesPermitidas = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
     return extensoesPermitidas.includes(arquivo.type);
@@ -88,7 +72,7 @@ function lerConteudoDoArquivo(arquivo, evento) {
     });
 }
 
-function manipularMensagemDeErro(erro) {
+function manipularMensagemDeErroFoto(erro) {
 
     if (erro) {
         mensagemDeErro.textContent = erro;
@@ -106,48 +90,56 @@ function manipularMensagemDeErro(erro) {
 }
 
 
-function excluirTag(evento) {
-    const botaoExcluir = evento.target.closest('[data-js="botao-excluir-tag"]');
+function exluirTag(evento) {
+    debugger;
+    const botaoExcluir = evento.target;
     if (botaoExcluir) {
         const tagEscolhida = botaoExcluir.parentElement;
         formularioListaTags.removeChild(tagEscolhida);
     }
 }
 
-formularioListaTags.addEventListener('click', excluirTag);
+formularioListaTags.addEventListener('click', exluirTag);
 
 
+function debounce(funcao, tempoEspera) {
+    let identificadorTimeout;
+    return function (...args) {
+        if (identificadorTimeout) clearTimeout(identificadorTimeout);
+        identificadorTimeout = setTimeout(() => funcao.apply(this, args), tempoEspera);
+    };
+}
 
-inputUploadImagem.addEventListener('change', async (evento) => {
+inputUploadImagem.addEventListener('change', (evento) => {
     const arquivo = evento.target.files[0];
 
     if (!arquivo) {
-        manipularMensagemDeErro('Nenhum arquivo selecionado.');
+        manipularMensagemDeErroFoto('Nenhum arquivo selecionado.');
         return;
-    } else {
+    }
 
+    debounce(async () => {
         try {
             const conteudoDoArquivo = await lerConteudoDoArquivo(arquivo, evento);
             imagem.src = conteudoDoArquivo.url;
             descricaoDaImagem.textContent = conteudoDoArquivo.nome;
 
-            manipularMensagemDeErro(null); // Limpa a mensagem
+            manipularMensagemDeErroFoto(null); // Limpa a mensagem
 
         } catch (erro) {
 
-            manipularMensagemDeErro(erro); // Exibe o erro
+            manipularMensagemDeErroFoto(erro); // Exibe o erro
         }
-
-    }
-
+    }, 300)();
 });
+
 
 function exibirTagsDisponiveis(tagTexto) {
 
     return new Promise((resolve) => {
 
         setTimeout(() => {
-            resolve(tagsDisponiveis.find(tag => tagTexto.toLowerCase() === tag.toLowerCase()));
+            resolve(tagsDisoniveis.includes(tagTexto));
         }, 1000);
 
     });
@@ -163,7 +155,7 @@ async function criarTagsDaImagem(evento) {
         if (nomeDaTag !== '') {
             try {
                 const tagJaExiste = await exibirTagsDisponiveis(nomeDaTag);
-                if (tagJaExiste) {
+                if(tagJaExiste) {
                     const li = document.createElement('li');
                     const p = document.createElement('p');
                     const botao = document.createElement('button');
@@ -172,71 +164,20 @@ async function criarTagsDaImagem(evento) {
                     botao.setAttribute('aria-label', 'Excluir tag');
                     botao.setAttribute('type', 'button');
                     botao.dataset.js = 'botao-excluir-tag';
-                    p.textContent = tagJaExiste;
+                    p.textContent = nomeDaTag;
                     li.appendChild(p);
                     li.appendChild(botao);
                     formularioListaTags.appendChild(li);
                     inputTags.value = '';
                 } else {
-                    manipularMensagemDeErro('Tag não encontrada');
-                    inputTags.value = '';
+                    alert("Tag não disponível");
                 }
             } catch (erro) {
-                manipularMensagemDeErro('Erro ao criar tag', erro);
+                console.error("Erro ao criar tag", erro);
+                alert("Erro ao criar tag");
             }
         }
     }
 }
 
 inputTags.addEventListener('keypress', criarTagsDaImagem);
-
-
-async function publicarDadosDoProjeto(nomeDoProjeto, descricaoDoProjeto, tags) {
-
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            const envio = Math.random() > 0.5;
-            if (envio) {
-                resolve('Projeto publicado com sucesso');
-            } else {
-                reject('Erro ao publicar projeto');
-            }
-        }, 2000);
-
-    });
-}
-
-async function enviarDados(evento) {
-    evento.preventDefault();
-    const nomeDoProjeto = formulario.projeto.value;
-    const descricaoDoProjeto = formulario.descricao.value;
-    const tags = Array.from(formularioListaTags.children).map(tag => tag.querySelector('p').textContent);
-
-    try {
-        const mensagem = await publicarDadosDoProjeto(nomeDoProjeto, descricaoDoProjeto, tags);
-        manipularMensagemDeErro(mensagem);
-    } catch (erro) {
-        console.error('Erro ao publicar projeto', erro);
-        manipularMensagemDeErro('Erro ao publicar projeto');
-    }
-
-    elementosQueResetamFormulario();
-}
-
-
-formulario.addEventListener('submit', enviarDados);
-
-
-function descartarDadosDoFormulario(evento) {
-    evento.preventDefault();
-    elementosQueResetamFormulario();
-}
-
-botaoExluirDadosFormulario.addEventListener('click', descartarDadosDoFormulario);
-
-function elementosQueResetamFormulario() {
-    formulario.reset();
-    imagem.src = './img/imagem1.png';
-    descricaoDaImagem.textContent = 'image__projeto.png';
-    formularioListaTags.innerHTML = '';
-}

@@ -99,7 +99,6 @@ body {
   font-size: 1.8rem;
   font-weight: 400;
   margin-bottom: 0.8rem;
-  cursor: pointer;
 }
 
 .c-formulario__grupo input,
@@ -270,29 +269,25 @@ textarea {
 
 .c-botao {
   position: relative;
+  top: 50%;
   background-color: transparent;
   border: none;
-  width: .9rem;
+  margin-left: 0.8rem;
+  width: 1.0rem;
   height: 2.2rem;
+  transform: translate(-50%, -50%);
   cursor: pointer;
 }
 
 .c-botao::after {
   content: "";
-  position: absolute;
-  top: 50%;
   display: inline-block;
   background-size: contain;
   background-repeat: no-repeat;
   width: .9rem;
   height: .9rem;
-  transform: translate(-50%, -50%);
 }
 
-.c-botao--excluir::after {
+.c-bootao--excluir::after {
   background-image: url("../img/close-black.svg");
-}
-
-.c-botao--fechar::after {
-  background-image: url("../img/close.svg");
 }

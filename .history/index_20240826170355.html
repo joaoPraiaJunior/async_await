@@ -37,7 +37,7 @@
             <input type="file" name="imagem" id="imagem" accept="image/*" aria-hidden="true" style="display:none" data-js="input-upload-imagem">
             <div class="c-upload-imagem__descricao">
                 <p data-js="descricao-da-imagem">image__projeto.png</p>
-                <button class="c-botao c-botao--fechar" aria-label="Excluir tag"></button>
+                <img src="./img/close.svg" aria-label="Excluir a imagem" alt>
             </div>
             <div class="c-upload-imagem__mensagem-erro">
                 <p data-js="mensagem-de-erro" aria-hidden="true"></p>
@@ -46,28 +46,27 @@
 
         <div class="c-formulario">
             <h1 class="c-formulario__titulo">Novo Projeto</h1>
-            <form class="c-formulario__acoes" data-js="formulario">
-                
-                <div class="c-formulario__grupo">
-                    <label for="projeto">Nome do Projeto</label>
-                    <input type="text" name="projeto" id="projeto" placeholder="Escreva o nome do projeto" required>
-                </div>
+            <form class="c-formulario__acoes">
                 <div class="c-formulario__grupo">
                     <label for="descricao">Descrição</label>
-                    <textarea name="descricao" id="descricao" placeholder="Faça uma descrição da imagem" required></textarea>
+                    <textarea name="descricao" id="descricao" placeholder="Faça uma descrição da imagem"></textarea>
                 </div>
 
                 <div class="c-formulario__grupo">
                     <label for="tags">Tags</label>
-                    <input type="text" name="tags" id="tags" placeholder="Escreva as tags" data-js="input-tags">
+                    <input type="text" name="tags" id="tags" placeholder="Escolha tags" data-js="tags">
                 </div>
 
-                <ul class="c-formulario__lista" data-js="formulario-lista-tags">
+                <ul class="c-formulario__lista">
+                    <li class="c-formulario__lista-tags">
+                        <p>Front-end</p>
+                        <img src="./img/close-black.svg" alt>
+                    </li>
                 </ul>
 
                 <div class="c-formulario__botoes">
-                    <button type="reset" class="c-formulario__botao c-formulario__botao--descartar" data-js="botao-excluir-dados-formulario">Descartar</button>
-                    <button type="submit" class="c-formulario__botao c-formulario__botao--salvar">Publicar</button>
+                    <button class="c-formulario__botao c-formulario__botao--descartar">Descartar</button>
+                    <button class="c-formulario__botao c-formulario__botao--salvar">Publicar</button>
                 </div>
             </form>
         </div>
