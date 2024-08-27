@@ -99,7 +99,6 @@ body {
   font-size: 1.8rem;
   font-weight: 400;
   margin-bottom: 0.8rem;
-  cursor: pointer;
 }
 
 .c-formulario__grupo input,
@@ -282,11 +281,11 @@ textarea {
   position: absolute;
   top: 50%;
   display: inline-block;
-  background-size: contain;
+  background-size: cover;
   background-repeat: no-repeat;
   width: .9rem;
   height: .9rem;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
 }
 
 .c-botao--excluir::after {

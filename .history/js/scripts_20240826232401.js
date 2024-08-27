@@ -19,19 +19,7 @@ const inputTags = document.querySelector(elementos.inputTags);
 const formularioListaTags = document.querySelector(elementos.formularioListaTags);
 const formulario = document.querySelector(elementos.formulario);
 const botaoExluirDadosFormulario = document.querySelector(elementos.botaoExluirDadosFormulario);
-const tagsDisponiveis = [
-    "Front-end",
-    "Programação",
-    "Data Science",
-    "Full-stack",
-    "HTML",
-    "CSS",
-    "JavaScript",
-    "React",
-    "Angular",
-    "Vue",
-    "Back-end",
-];
+const tagsDisponiveis = ["Front-end", "Programação", "Data Science", "Full-stack", "HTML", "CSS", "JavaScript"];
 
 botaoUploadImagem.addEventListener('click', () => {
     inputUploadImagem.click();
@@ -39,7 +27,7 @@ botaoUploadImagem.addEventListener('click', () => {
 
 function validaImagem(arquivo, evento) {
 
-    if (!validaExtensaoDaImagem(arquivo)) {
+    if (!validaExtensao(arquivo)) {
         evento.target.value = '';
         return 'Extensão não permitida. Por favor, envie uma imagem no formato JPEG, PNG, JPG ou GIF';
     }
@@ -52,7 +40,7 @@ function validaImagem(arquivo, evento) {
     return null; // Sem erro
 }
 
-function validaExtensaoDaImagem(arquivo) {
+function validaExtensao(arquivo) {
 
     const extensoesPermitidas = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
     return extensoesPermitidas.includes(arquivo.type);
@@ -141,6 +129,7 @@ inputUploadImagem.addEventListener('change', async (evento) => {
     }
 
 });
+
 
 function exibirTagsDisponiveis(tagTexto) {
 
