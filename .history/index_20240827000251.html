@@ -27,13 +27,14 @@
     </aside>
 
     <main class="l-principal">
+        <form class="c-formulario__acoes" data-js="formulario">
         <div class="c-upload-imagem">
             <div class="c-upload-imagem__container">
                 <figure class="c-upload-imagem__publicacao">
                     <img src="./img/imagem1.png" data-js="imagem" alt>
                 </figure>
             </div>
-            <button class="c-upload-imagem__botao" aria-label="carregar imagem" data-js="upload-de-imagem" aria-label="carregar-imagem">Carregar Imagem</button>
+            <button type="button" class="c-upload-imagem__botao" aria-label="carregar imagem" data-js="upload-de-imagem" aria-label="carregar-imagem">Carregar Imagem</button>
             <input type="file" name="imagem" id="imagem" accept="image/*" aria-hidden="true" style="display:none" data-js="input-upload-imagem">
             <div class="c-upload-imagem__descricao">
                 <p data-js="descricao-da-imagem">image__projeto.png</p>
@@ -46,15 +47,14 @@
 
         <div class="c-formulario">
             <h1 class="c-formulario__titulo">Novo Projeto</h1>
-            <form class="c-formulario__acoes" data-js="formulario">
                 
                 <div class="c-formulario__grupo">
                     <label for="projeto">Nome do Projeto</label>
-                    <input type="text" name="projeto" id="projeto" placeholder="Escreva o nome do projeto">
+                    <input type="text" name="projeto" id="projeto" placeholder="Escreva o nome do projeto" required>
                 </div>
                 <div class="c-formulario__grupo">
                     <label for="descricao">Descrição</label>
-                    <textarea name="descricao" id="descricao" placeholder="Faça uma descrição da imagem"></textarea>
+                    <textarea name="descricao" id="descricao" placeholder="Faça uma descrição da imagem" required></textarea>
                 </div>
 
                 <div class="c-formulario__grupo">
@@ -73,7 +73,7 @@
         </div>
     </main>
 
-    <script type="module" src="./js/scripts.js"></script>
+    <script src="./js/scripts.js"></script>
 </body>
 
 </html>

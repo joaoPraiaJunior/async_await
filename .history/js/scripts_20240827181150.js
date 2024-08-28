@@ -26,7 +26,6 @@ function iniciarAplicacao() {
     botaoUploadImagem.addEventListener('click', () => {
         inputUploadImagem.click();
     });
-    
     formularioListaTags.addEventListener('click', excluirTag);
     inputUploadImagem.addEventListener('change', uploadDeImagem);
     inputTags.addEventListener('keypress', criarTagsDoProjeto);
