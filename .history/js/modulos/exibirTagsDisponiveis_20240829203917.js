@@ -1,3 +1,8 @@
+import barraDeProgresso from "./barraDeProgresso.js";
+
+
+let contador = 0;
+
 function exibirTagsDisponiveis(tagTexto) {
 
     const tagsDisponiveis = [
@@ -17,8 +22,10 @@ function exibirTagsDisponiveis(tagTexto) {
     return new Promise((resolve) => {
 
         setTimeout(() => {
+            console.log(`Progresso: ${contador++ * 10}%`);
             resolve(tagsDisponiveis.find(tag => tagTexto.toLowerCase() === tag.toLowerCase()));
-        }, 10000);
+            barraDeProgresso(contador);
+        }, 1000);
 
     });
 }

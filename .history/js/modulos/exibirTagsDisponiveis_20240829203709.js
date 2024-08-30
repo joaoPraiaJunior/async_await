@@ -1,4 +1,8 @@
+import barraDeProgresso from "./barraDeProgresso.js";
+
 function exibirTagsDisponiveis(tagTexto) {
+
+    let contador = 0;
 
     const tagsDisponiveis = [
         "Front-end",
@@ -18,7 +22,8 @@ function exibirTagsDisponiveis(tagTexto) {
 
         setTimeout(() => {
             resolve(tagsDisponiveis.find(tag => tagTexto.toLowerCase() === tag.toLowerCase()));
-        }, 10000);
+            barraDeProgresso(contador++);
+        }, 1000);
 
     });
 }

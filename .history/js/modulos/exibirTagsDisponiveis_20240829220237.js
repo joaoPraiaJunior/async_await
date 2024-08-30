@@ -1,3 +1,7 @@
+
+
+let contador = 0;
+
 function exibirTagsDisponiveis(tagTexto) {
 
     const tagsDisponiveis = [
@@ -18,7 +22,7 @@ function exibirTagsDisponiveis(tagTexto) {
 
         setTimeout(() => {
             resolve(tagsDisponiveis.find(tag => tagTexto.toLowerCase() === tag.toLowerCase()));
-        }, 10000);
+        }, 1000);
 
     });
 }

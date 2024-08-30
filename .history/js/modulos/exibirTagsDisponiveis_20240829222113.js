@@ -1,3 +1,8 @@
+import barraDeProgresso from "./barraDeProgresso.js";
+
+
+let contador = 0;
+
 function exibirTagsDisponiveis(tagTexto) {
 
     const tagsDisponiveis = [
@@ -13,6 +18,8 @@ function exibirTagsDisponiveis(tagTexto) {
         "Vue",
         "Back-end",
     ];
+
+    barraDeProgresso(contador);
 
     return new Promise((resolve) => {
 

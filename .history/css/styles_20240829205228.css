@@ -300,3 +300,18 @@ textarea {
 .c-botao--fechar::after {
   background-image: url("../img/close.svg");
 }
+
+.c-barrade-progresso {
+ display: none;
+  background-color: var(--cor-secundaria);
+  border-radius: 0.8rem;
+  height: 1.6rem;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 1.6rem;
+}
+
+.c-barra-de-progresso__progresso {
+  background-color: var(--cor-primaria);
+  width: 100%;
+}

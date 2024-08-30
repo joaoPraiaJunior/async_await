@@ -300,3 +300,7 @@ textarea {
 .c-botao--fechar::after {
   background-image: url("../img/close.svg");
 }
+
+.c-barra-de-progresso__progresso {
+  width: 100%
+}

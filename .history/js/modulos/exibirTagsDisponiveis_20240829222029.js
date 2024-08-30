@@ -1,3 +1,8 @@
+import barraDeProgresso from "./barraDeProgresso.js";
+
+
+let contador = 0;
+
 function exibirTagsDisponiveis(tagTexto) {
 
     const tagsDisponiveis = [
@@ -14,11 +19,13 @@ function exibirTagsDisponiveis(tagTexto) {
         "Back-end",
     ];
 
+    barraDeProgresso(contador);
+
     return new Promise((resolve) => {
 
         setTimeout(() => {
             resolve(tagsDisponiveis.find(tag => tagTexto.toLowerCase() === tag.toLowerCase()));
-        }, 10000);
+        }, 1000);
 
     });
 }

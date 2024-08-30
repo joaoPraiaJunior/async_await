@@ -1,0 +1,8 @@
+function contadorDeCaracteres() {
+    const elesemntos = {
+        descricaoDoPorjeto: '[data-js="descricao-do-projeto"]',
+        contadorDescricao: '[data-js="contador-descricao"]',
+    }
+}
+
+export default contadorDeCaracteres;

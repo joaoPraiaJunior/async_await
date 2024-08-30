@@ -42,7 +42,6 @@ function iniciarAplicacao() {
     descricaoDaImagem.addEventListener('click', excluirImagemApresentada);
     areaDeTexto.addEventListener('input', contadorDeCaracteres);
 
-
 }
 
 window.addEventListener('load', iniciarAplicacao);

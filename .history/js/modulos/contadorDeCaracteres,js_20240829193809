@@ -1,0 +1,8 @@
+function contadorDeCaracteres() {
+    const elesemntos = {
+        areaDeTexto: '[data-js="area-de-texto"]',
+        contadorDeCaracteres: '[data-js="contador-de-caracteres"]',
+    }
+}
+
+export default contadorDeCaracteres;

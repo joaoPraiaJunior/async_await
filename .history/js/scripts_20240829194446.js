@@ -1,6 +1,6 @@
 
 
-import contadorDeCaracteres from "./modulos/contadorDeCaracteres.js";
+import contadorDeCaracteres from "./modulos/contadorDeCaracteres,js";
 import criarTagsDoProjeto from "./modulos/criarTagsDoProjeto.js";
 import descartarDadosDoFormulario from "./modulos/descartarDadosDoFormulario.js";
 import enviarDados from "./modulos/enviarDados.js";
@@ -41,7 +41,6 @@ function iniciarAplicacao() {
     botaoExluirDadosFormulario.addEventListener('click', descartarDadosDoFormulario);
     descricaoDaImagem.addEventListener('click', excluirImagemApresentada);
     areaDeTexto.addEventListener('input', contadorDeCaracteres);
-
 
 }
 

@@ -1,5 +1,4 @@
 
-
 import contadorDeCaracteres from "./modulos/contadorDeCaracteres.js";
 import criarTagsDoProjeto from "./modulos/criarTagsDoProjeto.js";
 import descartarDadosDoFormulario from "./modulos/descartarDadosDoFormulario.js";
@@ -18,7 +17,7 @@ function iniciarAplicacao() {
         formularioListaTags: '[data-js="formulario-lista-tags"]',
         botaoExluirDadosFormulario: '[data-js="botao-excluir-dados-formulario"]',
         descricaoDaImagem: '[data-js="descricao-da-imagem"]',
-        areaDeTexto: '[data-js="area-de-texto"]',
+        descricaoDoPorjeto: '[data-js="descricao-do-projeto"]',
     }
 
     const botaoUploadImagem = document.querySelector(elementos.botaoUploadImagem);
@@ -28,7 +27,7 @@ function iniciarAplicacao() {
     const formularioListaTags = document.querySelector(elementos.formularioListaTags);
     const inputTags = document.querySelector(elementos.inputTags);
     const descricaoDaImagem = document.querySelector(elementos.descricaoDaImagem);
-    const areaDeTexto = document.querySelector(elementos.areaDeTexto);
+    const descricaoDoPorjeto = document.querySelector(elementos.descricaoDoPorjeto);
 
     botaoUploadImagem.addEventListener('click', () => {
         inputUploadImagem.click();
@@ -40,8 +39,7 @@ function iniciarAplicacao() {
     formulario.addEventListener('submit', enviarDados);
     botaoExluirDadosFormulario.addEventListener('click', descartarDadosDoFormulario);
     descricaoDaImagem.addEventListener('click', excluirImagemApresentada);
-    areaDeTexto.addEventListener('input', contadorDeCaracteres);
-
+    descricaoDoPorjeto.addEventListener('input', contadorDeCaracteres);
 
 }
 

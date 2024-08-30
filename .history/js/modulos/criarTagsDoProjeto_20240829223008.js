@@ -1,3 +1,4 @@
+import barraDeProgresso from './barraDeProgresso.js';
 import exibirTagsDisponiveis from './exibirTagsDisponiveis.js';
 import manipularMensagemDeErro from './manipularMensagemDeErro.js';
 
@@ -20,6 +21,7 @@ async function criarTagsDoProjeto(evento) {
             try {
                 const tagJaExiste = await exibirTagsDisponiveis(nomeDaTag);
                 if (tagJaExiste) {
+                    barraDeProgresso(contador);
                     const li = document.createElement('li');
                     const p = document.createElement('p');
                     const botao = document.createElement('button');
