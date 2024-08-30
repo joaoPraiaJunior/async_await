@@ -1,0 +1,26 @@
+function barraDeProgresso(contador) {
+
+    const elementos = {
+        barraDeProgresso: '[data-js="barra-de-progresso"]',
+        progresso: '[data-js="progresso"]',
+    }
+
+    const barraDeProgresso = document.querySelector(elementos.barraDeProgresso);
+    const progresso = document.querySelector(elementos.progresso);
+
+    const intervalo = setInterval(() => {
+        progresso.value = contador + 1 * 100
+        console.log(contador + 1)
+        if(progresso.value === 100) {
+            clearInterval(intervalo);
+        }
+    }, 10000);
+
+
+    // if (contador === 10) {
+    //     clearInterval(intervalo);
+    //     barraDeProgresso.style.display = 'none';
+    // }
+}
+
+export default barraDeProgresso;
