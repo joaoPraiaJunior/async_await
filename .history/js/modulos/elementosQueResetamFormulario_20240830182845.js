@@ -7,7 +7,6 @@ function elementosQueResetamFormulario() {
         formularioListaTags: '[data-js="formulario-lista-tags"]',
         formulario: '[data-js="formulario"]',
         inputUploadDeImagem: '[data-js="input-upload-imagem"]',
-        areaDeTexto: '[data-js="area-de-texto"]',
         contador: '[data-js="contador-de-caracteres"]',
     }
 
@@ -17,9 +16,9 @@ function elementosQueResetamFormulario() {
     const formularioListaTags = document.querySelector(elementos.formularioListaTags);
     const inputUploadDeImagem = document.querySelector(elementos.inputUploadDeImagem);
     const contador = document.querySelector(elementos.contador);
-    const areaDeTexto = document.querySelector(elementos.areaDeTexto);
-    const qtdDeCaracteres = areaDeTexto.getAttribute('maxLength');
+    const qtdDeCaracteres = contador.getAttribute('maxLength');
 
+    console.log(qtdDeCaracteres);
     formulario.reset();
     imagem.src = './img/imagem1.png';
     descricaoDaImagem.innerHTML = '';

@@ -20,6 +20,7 @@ function elementosQueResetamFormulario() {
     const areaDeTexto = document.querySelector(elementos.areaDeTexto);
     const qtdDeCaracteres = areaDeTexto.getAttribute('maxLength');
 
+    console.log(qtdDeCaracteres);
     formulario.reset();
     imagem.src = './img/imagem1.png';
     descricaoDaImagem.innerHTML = '';
